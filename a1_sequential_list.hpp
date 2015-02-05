@@ -19,9 +19,10 @@ private:
 	unsigned int size_;
 
 	// Copy constructor. Declared private so we don't use it incorrectly.
-	SequentialList(const SequentialList& rhs) {}
+	SequentialList(const SequentialList& rhs): data_(rhs.data_),capacity_(rhs.capacity_),size_(rhs.size_)
+	{}
 	// Assignment operator. Declared private so we don't use it incorrectly.
-	SequentialList& operator=(const SequentialList& rhs) {}
+	// SequentialList& operator=(const SequentialList& rhs) {}
 
 public:
 	// CONSTRUCTORS/DESTRUCTOR

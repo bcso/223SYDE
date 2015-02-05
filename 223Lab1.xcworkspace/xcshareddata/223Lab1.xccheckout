@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6FBC96FB-6646-47FE-A597-BF727F3E2E12</string>
+	<key>IDESourceControlProjectName</key>
+	<string>223Lab1</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7BA0A5F8852586C43D01019D516A5151F933FEDC</key>
+		<string>https://github.com/bcso/223SYDE.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>223Lab1.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7BA0A5F8852586C43D01019D516A5151F933FEDC</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/bcso/223SYDE.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7BA0A5F8852586C43D01019D516A5151F933FEDC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7BA0A5F8852586C43D01019D516A5151F933FEDC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>223SYDE</string>
+		</dict>
+	</array>
+</dict>
+</plist>
