@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D3615D661A82DBB4000F2866"
-               BuildableName = "223Lab1"
-               BlueprintName = "223Lab1"
-               ReferencedContainer = "container:223Lab1.xcodeproj">
+               BlueprintIdentifier = "D38966E11A8417A500910602"
+               BuildableName = "SeqList"
+               BlueprintName = "SeqList"
+               ReferencedContainer = "container:SeqList.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D3615D661A82DBB4000F2866"
-            BuildableName = "223Lab1"
-            BlueprintName = "223Lab1"
-            ReferencedContainer = "container:223Lab1.xcodeproj">
+            BlueprintIdentifier = "D38966E11A8417A500910602"
+            BuildableName = "SeqList"
+            BlueprintName = "SeqList"
+            ReferencedContainer = "container:SeqList.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,10 +51,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D3615D661A82DBB4000F2866"
-            BuildableName = "223Lab1"
-            BlueprintName = "223Lab1"
-            ReferencedContainer = "container:223Lab1.xcodeproj">
+            BlueprintIdentifier = "D38966E11A8417A500910602"
+            BuildableName = "SeqList"
+            BlueprintName = "SeqList"
+            ReferencedContainer = "container:SeqList.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -69,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D3615D661A82DBB4000F2866"
-            BuildableName = "223Lab1"
-            BlueprintName = "223Lab1"
-            ReferencedContainer = "container:223Lab1.xcodeproj">
+            BlueprintIdentifier = "D38966E11A8417A500910602"
+            BuildableName = "SeqList"
+            BlueprintName = "SeqList"
+            ReferencedContainer = "container:SeqList.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

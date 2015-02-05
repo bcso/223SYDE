@@ -1,8 +1,8 @@
 //
 //  main.cpp
-//  223Lab1
+//  SeqList
 //
-//  Created by Brian So on 2015-02-04.
+//  Created by Brian So on 2015-02-05.
 //  Copyright (c) 2015 Brian So. All rights reserved.
 //
 

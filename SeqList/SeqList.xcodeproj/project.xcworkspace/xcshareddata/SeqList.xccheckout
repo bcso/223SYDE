@@ -5,20 +5,20 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>16447140-A2AB-4D38-B598-317B81103901</string>
+	<string>FEEF42AF-1587-4408-870D-4DC5A17DF8DF</string>
 	<key>IDESourceControlProjectName</key>
-	<string>223Lab1</string>
+	<string>SeqList</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>7BA0A5F8852586C43D01019D516A5151F933FEDC</key>
 		<string>https://github.com/bcso/223SYDE.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>xCodeTest/223Lab1/223Lab1.xcodeproj</string>
+	<string>SeqList/SeqList.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>7BA0A5F8852586C43D01019D516A5151F933FEDC</key>
-		<string>../../../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/bcso/223SYDE.git</string>

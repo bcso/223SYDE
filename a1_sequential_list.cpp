@@ -110,8 +110,8 @@ bool SequentialList::insert_front(DataType val)
 }
 
 bool SequentialList::insert_back(DataType val)
-{
-	data_[size_+1] = val;
+{ 
+	data_[size_] = val;
 	size_ = size_ + 1;
 	return true;
 }
