@@ -1,9 +1,6 @@
 #ifndef A1_TESTS_HPP
 #define A1_TESTS_HPP
 
-#include <iostream>
-using namespace std;
-
 //#include "a1_doubly_linked_list.hpp"
 #include "a1_sequential_list.hpp"
 
@@ -30,26 +27,14 @@ public:
         unsigned int capacity = 5;
         SequentialList list1(capacity);
         SequentialList list2(capacity);
-        
-        list1.print();
-        cout << endl;
-        list2.print();
-        cout << endl;
         ASSERT_TRUE(list1.insert_front(100))
-        cout << "Test 2 insert_front pass."<<endl;
         ASSERT_TRUE(list2.insert_back(100))
-        cout << "Test 2 insert_back pass."<<endl;
 
     
         ASSERT_TRUE(list1.size() == list2.size() && list1.size() == 1)
-        cout << "Test 2 size check pass."<<endl;
         ASSERT_TRUE(list1.data_ != NULL)
-        cout << "Test 2 list1.data_ != NULL pass."<<endl;
         ASSERT_TRUE(list2.data_ != NULL)
-        cout << "Test 2 list2.data_ != NULL pass."<<endl;
         ASSERT_TRUE(list1.select(0) == list2.select(0) && list1.select(0) == 100)
-
-        cout << "Test 2 select pass."<<endl;
         return true;
     }
 

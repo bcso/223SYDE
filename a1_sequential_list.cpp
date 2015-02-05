@@ -17,22 +17,27 @@ SequentialList::SequentialList(unsigned int cap)
 
 SequentialList::~SequentialList()
 {
+	//Free up the space
 	delete [] data_;
+	//Remove dangling pointers
 	data_ = NULL;
 }
 
 unsigned int SequentialList::size() const
 {
+	//return size
 	return size_;
 }
 
 unsigned int SequentialList::capacity() const
 {
+	//return size
 	return capacity_;
 }
 
 bool SequentialList::empty() const
 {
+	//Check size of list for empty
 	if (size_ == 0){
 		return true;
 	} else {
@@ -42,6 +47,7 @@ bool SequentialList::empty() const
 
 bool SequentialList::full() const
 {
+	//Check size of list for empty
 	if (size_ == capacity_){
 		return true;
 	} else {
@@ -51,6 +57,7 @@ bool SequentialList::full() const
 
 SequentialList::DataType SequentialList::select(unsigned int index) const
 {
+	//Check if index is in size
 	if (index >= size_){
 		return data_[size_-1];
 	}
@@ -59,6 +66,7 @@ SequentialList::DataType SequentialList::select(unsigned int index) const
 
 unsigned int SequentialList::search(DataType val) const
 {
+	//iterate through array until proper value is found
 	for (int i = 0; i<size_; i++){
 		if (data_[i] == val){
 			return i;
@@ -70,6 +78,7 @@ unsigned int SequentialList::search(DataType val) const
 
 void SequentialList::print() const
 {
+	//Print the list
 	for (int i = 0; i<size_; i++){
 		cout << data_[i] << " ";
 	}
@@ -77,10 +86,11 @@ void SequentialList::print() const
 
 bool SequentialList::insert(DataType val, unsigned int index)
 {
+	//Initialize the vars
 	size_ = size_ + 1;
-    int temp = 0;
-    int tempVal = data_[index];
-    data_[index] = val;
+	int temp = 0;
+	int tempVal = data_[index];
+	data_[index] = val;
 
 	//shuffle the list over
 	for (int i = index + 1; i<size_; i++){
@@ -94,10 +104,11 @@ bool SequentialList::insert(DataType val, unsigned int index)
 
 bool SequentialList::insert_front(DataType val)
 {
+	//Initliaze the vars
 	size_ = size_ + 1;
-    int temp = 0;
-    int tempVal = data_[0];
-    data_[0] = val;
+ 	int temp = 0;
+ 	int tempVal = data_[0];
+ 	data_[0] = val;
 
 	//shuffle the list over
 	for (int i = 1; i<size_; i++){
@@ -118,6 +129,7 @@ bool SequentialList::insert_back(DataType val)
 
 bool SequentialList::remove(unsigned int index)
 {
+	//Check for empty array
 	if (size_ == 0){
 		return false;
 	}
@@ -135,6 +147,7 @@ bool SequentialList::remove(unsigned int index)
 
 bool SequentialList::remove_front()
 {
+	//Check for empty array
 	if (size_ == 0){
 		return false;
 	}
@@ -153,11 +166,12 @@ bool SequentialList::remove_front()
 
 bool SequentialList::remove_back()
 {
+	//Check for empty array
 	if (size_ == 0){
 		return false;
 	}
 
-    data_[size_] = NULL;
+	data_[size_] = NULL;
 
 	//Decrement size
 	size_ = size_ - 1;
@@ -167,6 +181,7 @@ bool SequentialList::remove_back()
 
 bool SequentialList::replace(unsigned int index, DataType val)
 {
+	//Check for empty array
 	if (size_ == 0){
 		return false;
 	}
