@@ -4,6 +4,9 @@
 
 using namespace std;
 
+//Brian So, 20477254
+//Kenny Lam, 20519190 
+
 SequentialList::SequentialList(unsigned int cap)
 {
 	//Define max number of elements this list can sure
