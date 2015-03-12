@@ -4,52 +4,52 @@
 #define ASSERT_TRUE(T) if (!(T)) return false;
 #define ASSERT_FALSE(T) if ((T)) return false;
 
-#include "a2_dynamic_stack.hpp"
+// #include "a2_dynamic_stack.hpp"
 #include "a2_circular_queue.hpp"
 
-class DynamicStackTest
-{
-public:
-    bool test1()
-    {
-      unsigned int size = 24;
+// class DynamicStackTest
+// {
+// public:
+//     bool test1()
+//     {
+//       unsigned int size = 24;
 
-      DynamicStack default_size_stack;
-      ASSERT_TRUE(default_size_stack.empty() == true)
-      ASSERT_TRUE(default_size_stack.size() == 0)    
+//       DynamicStack default_size_stack;
+//       ASSERT_TRUE(default_size_stack.empty() == true)
+//       ASSERT_TRUE(default_size_stack.size() == 0)    
 
-      DynamicStack stack(size);
-      ASSERT_TRUE(stack.empty() == true)
-      ASSERT_TRUE(stack.size() == 0)    
-      return true;
-    }
+//       DynamicStack stack(size);
+//       ASSERT_TRUE(stack.empty() == true)
+//       ASSERT_TRUE(stack.size() == 0)    
+//       return true;
+//     }
 
-    bool test2()
-    {
-      DynamicStack stack;
-      stack.push(10);
-      ASSERT_TRUE(stack.empty() == false)
-      ASSERT_TRUE(stack.size() == 1)       
-      ASSERT_TRUE(stack.pop() == 10);
-      ASSERT_TRUE(stack.empty() == true)
-      ASSERT_TRUE(stack.size() == 0)     
-      return true;
-    }
+//     bool test2()
+//     {
+//       DynamicStack stack;
+//       stack.push(10);
+//       ASSERT_TRUE(stack.empty() == false)
+//       ASSERT_TRUE(stack.size() == 1)       
+//       ASSERT_TRUE(stack.pop() == 10);
+//       ASSERT_TRUE(stack.empty() == true)
+//       ASSERT_TRUE(stack.size() == 0)     
+//       return true;
+//     }
 
-    bool test3()
-    {
-      DynamicStack stack(24);
-      stack.push(10);
-      stack.push(20);
-      ASSERT_TRUE(stack.peek() == 20)     
-      ASSERT_TRUE(stack.pop() == 20)
-      ASSERT_TRUE(stack.pop() == 10)     
-      ASSERT_TRUE(stack.pop() == DynamicStack::EMPTY_STACK)
-      ASSERT_TRUE(stack.peek() == DynamicStack::EMPTY_STACK)
-      return true;
-    }
+//     bool test3()
+//     {
+//       DynamicStack stack(24);
+//       stack.push(10);
+//       stack.push(20);
+//       ASSERT_TRUE(stack.peek() == 20)     
+//       ASSERT_TRUE(stack.pop() == 20)
+//       ASSERT_TRUE(stack.pop() == 10)     
+//       ASSERT_TRUE(stack.pop() == DynamicStack::EMPTY_STACK)
+//       ASSERT_TRUE(stack.peek() == DynamicStack::EMPTY_STACK)
+//       return true;
+//     }
 
-};
+// };
 
 class CircularQueueTest
 {
