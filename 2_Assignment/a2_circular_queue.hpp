@@ -25,9 +25,9 @@ private:
     int size_;
 
     // Copy constructor. Declared private so we don't use it incorrectly.
-    CircularQueue(const CircularQueue& other) {}
+    // CircularQueue(const CircularQueue& other) {}
     // Assignment operator. Declared private so we don't use it incorrectly.
-    CircularQueue operator=(const CircularQueue& other) {}
+    // CircularQueue operator=(const CircularQueue& other) {}
     
 public:
 	// CONSTRUCTORS/DESTRUCTOR
