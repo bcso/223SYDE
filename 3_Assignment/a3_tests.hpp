@@ -122,6 +122,7 @@ public:
     cout << "ASSERT_TRUE(bst.insert(5)); OK " << endl;
     ASSERT_TRUE(!bst.remove(4));
     cout << "ASSERT_TRUE(!bst.remove(4)); OK " << endl;
+    bst.print();
     ASSERT_TRUE(bst.exists(5));
     cout << "ASSERT_TRUE(bst.exists(5)); OK" << endl;
     ASSERT_TRUE(bst.max() == bst.min() && bst.max() == 5);
@@ -143,14 +144,22 @@ public:
     
     BinarySearchTree bst;
     ASSERT_TRUE(bst.insert(10));
+    cout << "T3_ASSERT_TRUE(bst.insert(10)); OK " << endl;
     ASSERT_TRUE(bst.insert(8));
+    bst.print();
+    cout << "T3_ASSERT_TRUE(bst.insert(8)); OK " << endl;
     ASSERT_TRUE(bst.size() == 2);
+    cout << "T3_ASSERT_TRUE(bst.size() == 2); OK " << endl;
     ASSERT_TRUE(bst.insert(6));
+    cout << "T3_ASSERT_TRUE(bst.insert(6)); OK " << endl;
     ASSERT_TRUE(bst.size() == 3);
+    bst.print();
+    cout << "T3_ASSERT_TRUE(bst.size() == 3); OK " << endl;
 
     ASSERT_TRUE(bst.remove(8));
+    cout << "T3_ASSERT_TRUE(bst.remove(8)); OK " << endl;
     ASSERT_TRUE(bst.size() == 2);
-    
+    cout << "T3_ASSERT_TRUE(bst.size() == 2); OK " << endl;
     std::string tree_level_order = level_order(bst.root_);
     // Compare the tree's representation to the expected tree.
     ASSERT_TRUE(tree_level_order.compare(expected_tree_level_order) == 0)

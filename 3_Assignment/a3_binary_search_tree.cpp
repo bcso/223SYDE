@@ -3,6 +3,12 @@
 
 using namespace std;
 
+BinarySearchTree::Node::Node(DataType newval){
+	val = newval;
+	left = NULL;
+	right = NULL;
+}
+
 BinarySearchTree::BinarySearchTree(){
 	root_ = NULL;
 	size_ = 0;
@@ -52,23 +58,25 @@ unsigned int BinarySearchTree::depth() const{
 	return maxDepth(root_);
 }
 
-
-void printTree(BinarySearchTree::Node * t_){
+//Helper function to recursivly print a tree
+void inOrderPrint(BinarySearchTree::Node * t_){
 	if (t_ == NULL){
 		return;
 	}
-	printTree(t_);
+	inOrderPrint(t_ -> left);
 	cout << t_ -> val << " ";
-	printTree(t_);
+	inOrderPrint(t_ -> right);
 }
 
 void BinarySearchTree::print() const{
-	printTree(root_);
+	inOrderPrint(root_);
 }
 
 bool BinarySearchTree::exists(DataType val) const{
 	Node * currNode = root_;
-	while ((currNode -> right != NULL) && (currNode -> left != NULL)){
+
+	do {
+
 		if (val == currNode -> val){
 			return true;
 		}
@@ -78,6 +86,30 @@ bool BinarySearchTree::exists(DataType val) const{
 		} else {
 			currNode = currNode -> left;
 		}
+	} while ((currNode -> right != NULL) && (currNode -> left != NULL));
+	return false;
+}
+
+//Helper function to check for leaf node
+bool leafNode(BinarySearchTree::Node * currNode){
+	if ((currNode -> right == NULL) && (currNode -> left == NULL)){
+		return true;
+	}
+	return false;
+}
+
+//Helper function to check for node with single child
+bool singleChild(BinarySearchTree::Node * currNode){
+	if (((currNode -> right != NULL) && (currNode -> left == NULL)) || ((currNode -> right == NULL) && (currNode -> left != NULL))){
+		return true;
+	}
+	return false;
+}
+
+//Helper function to check for node with two children
+bool doubleChild(BinarySearchTree::Node * currNode){
+	if ((currNode -> left != NULL) && (currNode -> right != NULL)){
+		return true;
 	}
 	return false;
 }
@@ -86,8 +118,15 @@ bool BinarySearchTree::insert(DataType val){
 	Node * nodeToInsert = new Node(val);
 	Node * currNode = root_;
 
+	//Empty tree
+	if (size_ == 0){
+		root_ = nodeToInsert;
+		size_++;
+		return true;
+	}
+
 	//Find the appropriate leaf node
-	while ((currNode -> right != NULL) && (currNode -> left != NULL)){
+	while (!(::leafNode(currNode))){
 		if (currNode -> val == val){
 			return false;
 		}
@@ -113,109 +152,106 @@ bool BinarySearchTree::insert(DataType val){
 	return false;
 }
 
-BinarySearchTree::Node * inOrderPredecessor(BinarySearchTree::Node * nodeToDelete){
-
-	BinarySearchTree::Node * prev = nodeToDelete; // Instantiate the previous value
-	BinarySearchTree::Node * inOrderPredecessor = nodeToDelete -> left; // Instantiate the return value
-
-
-	while (inOrderPredecessor -> right != NULL){
-		inOrderPredecessor = inOrderPredecessor -> right;
-		prev = inOrderPredecessor;
-	}
-
-	// Check if the inorder predecessor has no children
-	if (prev == nodeToDelete) {
-		prev -> left = prev -> left -> left;
-		return inOrderPredecessor;
-	}
-
-	// inOrderPredecessor has at least one child
-	prev -> right = NULL; //remove the inOrderPredecessor from the tree
-	return inOrderPredecessor;
-}
-
 bool BinarySearchTree::remove(DataType val){
-	Node * inOrderPredecessor = root_; // Instantiate left child holder for largest preorder predecessor
-	Node * nodeToDelete = root_;
 	Node * currNode = root_;
-	int childNum = 0;
+	Node * parent;
+	bool foundVal = false;
 
-	while ((currNode -> right != NULL) && (currNode -> left != NULL)){
-		
-		if (currNode -> right -> val == val){ 
-			nodeToDelete = currNode -> right;
-			// Check if current node is a leaf node
-			if ((nodeToDelete -> right == NULL) && (nodeToDelete -> left == NULL)){
-				currNode -> right = NULL;
- 				return true;
-
-			// Check if current node has one child
-			} else if (((nodeToDelete -> right != NULL) && (nodeToDelete -> left == NULL)) || ((nodeToDelete -> right == NULL) && (nodeToDelete -> left != NULL))){
-				// Node to link to from currNode is on the right
-				if ((nodeToDelete -> right != NULL) && (nodeToDelete -> left == NULL)){
-					currNode -> right = nodeToDelete -> right;
-					return true;
-				}
-				// Node to link to from currNode is on the left
-				if ((nodeToDelete -> right == NULL) && (nodeToDelete -> left != NULL)){
-					currNode -> right = nodeToDelete -> left;
-					return true;
-				}
-
-			//Check if current node has two children
-			} else if ((nodeToDelete -> right != NULL) && (nodeToDelete -> left != NULL)){
-				inOrderPredecessor = ::inOrderPredecessor(nodeToDelete);
-				inOrderPredecessor -> right = nodeToDelete -> right;
-				inOrderPredecessor -> left = nodeToDelete -> left;
-				currNode -> right = inOrderPredecessor;
-				// Delete largest pre-order predecessor
-				return true;
-			}
-		}
-
-		if (currNode -> left -> val == val) {
-			nodeToDelete = currNode -> left;
-			// Check if current node is a leaf node
-			if ((nodeToDelete -> right == NULL) && (nodeToDelete -> left == NULL)){
-				currNode -> left = NULL;
-				return true;
-
-			// Check if current node has one child
-			} else if (((nodeToDelete -> right != NULL) && (nodeToDelete -> left == NULL)) || ((nodeToDelete -> right == NULL) && (nodeToDelete -> left != NULL))){
-				// Node to link to from currNode is on the right
-				if ((nodeToDelete -> right != NULL) && (nodeToDelete -> left == NULL)){
-					currNode -> left = nodeToDelete -> right;
-					return true;
-				}
-				// Node to link to from currNode is on the left
-				if ((nodeToDelete -> right == NULL) && (nodeToDelete -> left != NULL)){
-					currNode -> left = nodeToDelete -> left;
-					return true;
-				}
-
-			//Check if current node has two children
-			} else if ((currNode -> left -> right != NULL) && (currNode -> left -> left != NULL)){
-				inOrderPredecessor = ::inOrderPredecessor(nodeToDelete);
-				inOrderPredecessor -> right = nodeToDelete -> right;
-				inOrderPredecessor -> left = nodeToDelete -> left;
-				currNode -> left = inOrderPredecessor;				
-				// Delete largest pre-order predecessor
-				return true;
-			}
-
-		}
-
-
-		// update currNode
-		if (val > currNode -> val){
-			currNode = currNode -> right;
+	while (!::leafNode(currNode)){
+		if (currNode -> val == val){ // Found the node of interest
+			foundVal = true;
+			break;
 		} else {
-			currNode = currNode -> left;
+			parent = currNode;
+			currNode = val > currNode -> val ? currNode -> right : currNode -> left;
 		}
 	}
 
-	return false; // value was not found
+	//Value not found
+	if (!foundVal){
+		return false;
+	}
 
+	//Deleteing a leaf node
+	if (::leafNode(currNode)){
+		if (parent -> left == currNode){
+			parent -> left = NULL;
+		} else {
+			parent -> right = NULL;
+		}
+		delete currNode;
+	}
+
+	//Deleteing a node with single child
+	if (::singleChild(currNode)){
+		cout << "Deleteing val: " << currNode -> val << endl;
+
+		//Deleting single child root
+		if (currNode == root_){
+			if (currNode -> left != NULL){
+				root_ = currNode -> left;
+				size_--;
+				return true;
+			} else {
+				root_ = currNode -> right;
+				size_--;
+				return true;
+			}
+		}
+
+		if ((currNode -> left == NULL) && (currNode -> right != NULL)) {
+			if (parent -> left == currNode){
+				parent -> left = currNode -> right;
+				size_--;
+				return true;
+			} else {
+				parent -> right = currNode -> right;
+				size_--;
+				return true;
+			}
+		} else {
+			if (parent -> left == currNode){
+				parent -> left = currNode -> left;
+				size_--;
+				return true;
+			} else {
+				parent -> right = currNode -> left;
+				size_--;
+				return true;
+			}			
+		}
+	}
+
+	//Deleting a node with two children
+	if (::doubleChild(currNode))
+	{
+		//Replace currNode with smallest inorder sucessor
+		Node * checker = currNode -> right;
+		if (::leafNode(checker)){
+			currNode = checker;
+			delete checker;
+			size_--;
+			currNode -> right = NULL;
+		} else { // right node (checker) has at least one child
+			if (checker -> left != NULL){
+				Node * checkerp = checker;
+				Node * checker = checker -> left;
+				while (checker -> left != NULL){
+					checkerp = checker;
+					checker = checker -> left;
+				}
+				currNode -> val = checker -> val;
+				delete checker;
+				size_--;
+				checkerp -> left = NULL;
+			} else {
+				Node * rtemp = currNode -> right;
+				currNode -> val = rtemp -> val;
+				currNode -> right = rtemp;
+				delete rtemp;
+				size_--;
+			}
+		}
+	}
 }
 
