@@ -1,6 +1,8 @@
 #include <iostream>
 #include "a3_binary_search_tree.hpp"
 
+using namespace std;
+
 BinarySearchTree::BinarySearchTree(){
 	root_ = NULL;
 	size_ = 0;
@@ -32,13 +34,37 @@ BinarySearchTree::DataType BinarySearchTree::min() const{
 	return currNode -> val;
 }
 
-// unsigned int BinarySearchTree::depth() const{
+BinarySearchTree::DataType max(BinarySearchTree::DataType a, BinarySearchTree::DataType b){
+	if (a > b){
+		return a;
+	}
+	return b;
+}
 
-// }
+BinarySearchTree::DataType maxDepth(BinarySearchTree::Node * t_){
+	if (t_ == NULL){
+		return 0;
+	}
+	return 1 + max(maxDepth(t_ -> left), maxDepth(t_ -> right));
+}
 
-// void BinarySearchTree::print() const{
+unsigned int BinarySearchTree::depth() const{
+	return maxDepth(root_);
+}
 
-// }
+
+void printTree(BinarySearchTree::Node * t_){
+	if (t_ == NULL){
+		return;
+	}
+	printTree(t_);
+	cout << t_ -> val << " ";
+	printTree(t_);
+}
+
+void BinarySearchTree::print() const{
+	printTree(root_);
+}
 
 bool BinarySearchTree::exists(DataType val) const{
 	Node * currNode = root_;
@@ -87,60 +113,93 @@ bool BinarySearchTree::insert(DataType val){
 	return false;
 }
 
+BinarySearchTree::Node * inOrderPredecessor(BinarySearchTree::Node * nodeToDelete){
+
+	BinarySearchTree::Node * prev = nodeToDelete; // Instantiate the previous value
+	BinarySearchTree::Node * inOrderPredecessor = nodeToDelete -> left; // Instantiate the return value
+
+
+	while (inOrderPredecessor -> right != NULL){
+		inOrderPredecessor = inOrderPredecessor -> right;
+		prev = inOrderPredecessor;
+	}
+
+	// Check if the inorder predecessor has no children
+	if (prev == nodeToDelete) {
+		prev -> left = prev -> left -> left;
+		return inOrderPredecessor;
+	}
+
+	// inOrderPredecessor has at least one child
+	prev -> right = NULL; //remove the inOrderPredecessor from the tree
+	return inOrderPredecessor;
+}
+
 bool BinarySearchTree::remove(DataType val){
-	Node * leftChild = root_; // Instantiate left child holder for largest preorder predecessor
+	Node * inOrderPredecessor = root_; // Instantiate left child holder for largest preorder predecessor
+	Node * nodeToDelete = root_;
 	Node * currNode = root_;
 	int childNum = 0;
 
 	while ((currNode -> right != NULL) && (currNode -> left != NULL)){
 		
 		if (currNode -> right -> val == val){ 
+			nodeToDelete = currNode -> right;
 			// Check if current node is a leaf node
-			if ((currNode -> right -> right == NULL) && (currNode -> right -> left == NULL)){
+			if ((nodeToDelete -> right == NULL) && (nodeToDelete -> left == NULL)){
 				currNode -> right = NULL;
  				return true;
 
 			// Check if current node has one child
-			} else if (((currNode -> right -> right != NULL) && (currNode -> right -> left == NULL)) || ((currNode -> right -> right == NULL) && (currNode -> right -> left != NULL))){
+			} else if (((nodeToDelete -> right != NULL) && (nodeToDelete -> left == NULL)) || ((nodeToDelete -> right == NULL) && (nodeToDelete -> left != NULL))){
 				// Node to link to from currNode is on the right
-				if ((currNode -> right -> right != NULL) && (currNode -> right -> left == NULL)){
-					currNode -> right = currNode -> right -> right;
+				if ((nodeToDelete -> right != NULL) && (nodeToDelete -> left == NULL)){
+					currNode -> right = nodeToDelete -> right;
 					return true;
 				}
 				// Node to link to from currNode is on the left
-				if ((currNode -> right -> right == NULL) && (currNode -> right -> left != NULL)){
-					currNode -> right = currNode -> right -> left;
+				if ((nodeToDelete -> right == NULL) && (nodeToDelete -> left != NULL)){
+					currNode -> right = nodeToDelete -> left;
 					return true;
 				}
 
 			//Check if current node has two children
-			} else if ((currNode -> right -> right != NULL) && (currNode -> right -> left != NULL)){
+			} else if ((nodeToDelete -> right != NULL) && (nodeToDelete -> left != NULL)){
+				inOrderPredecessor = ::inOrderPredecessor(nodeToDelete);
+				inOrderPredecessor -> right = nodeToDelete -> right;
+				inOrderPredecessor -> left = nodeToDelete -> left;
+				currNode -> right = inOrderPredecessor;
 				// Delete largest pre-order predecessor
 				return true;
 			}
 		}
 
 		if (currNode -> left -> val == val) {
+			nodeToDelete = currNode -> left;
 			// Check if current node is a leaf node
-			if ((currNode -> left -> right == NULL) && (currNode -> left -> left == NULL)){
+			if ((nodeToDelete -> right == NULL) && (nodeToDelete -> left == NULL)){
 				currNode -> left = NULL;
 				return true;
 
 			// Check if current node has one child
-			} else if (((currNode -> left -> right != NULL) && (currNode -> left -> left == NULL)) || ((currNode -> left -> right == NULL) && (currNode -> left -> left != NULL))){
+			} else if (((nodeToDelete -> right != NULL) && (nodeToDelete -> left == NULL)) || ((nodeToDelete -> right == NULL) && (nodeToDelete -> left != NULL))){
 				// Node to link to from currNode is on the right
-				if ((currNode -> left -> right != NULL) && (currNode -> left -> left == NULL)){
-					currNode -> left = currNode -> left -> right;
+				if ((nodeToDelete -> right != NULL) && (nodeToDelete -> left == NULL)){
+					currNode -> left = nodeToDelete -> right;
 					return true;
 				}
 				// Node to link to from currNode is on the left
-				if ((currNode -> left -> right == NULL) && (currNode -> left -> left != NULL)){
-					currNode -> left = currNode -> left -> left;
+				if ((nodeToDelete -> right == NULL) && (nodeToDelete -> left != NULL)){
+					currNode -> left = nodeToDelete -> left;
 					return true;
 				}
 
 			//Check if current node has two children
 			} else if ((currNode -> left -> right != NULL) && (currNode -> left -> left != NULL)){
+				inOrderPredecessor = ::inOrderPredecessor(nodeToDelete);
+				inOrderPredecessor -> right = nodeToDelete -> right;
+				inOrderPredecessor -> left = nodeToDelete -> left;
+				currNode -> left = inOrderPredecessor;				
 				// Delete largest pre-order predecessor
 				return true;
 			}

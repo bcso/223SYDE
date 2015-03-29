@@ -19,7 +19,7 @@ int main()
     // bool pqueue_test3_passed = pqueue_test.test3();
 
     bool btree_test1_passed = btree_test.test1();
-    bool btree_test2_passed = btree_test.test2();
+    // bool btree_test2_passed = btree_test.test2();
     // bool btree_test3_passed = btree_test.test3();
 
     // cout << "---Priority Queue Tests---" << endl;
@@ -30,7 +30,7 @@ int main()
     
     cout << "---Binary Search Tree Tests---" << endl;
     cout << "Test1: " << get_status_str(btree_test1_passed) << endl;
-    cout << "Test2: " << get_status_str(btree_test2_passed) << endl;
+    // cout << "Test2: " << get_status_str(btree_test2_passed) << endl;
     // cout << "Test3: " << get_status_str(btree_test3_passed) << endl;
 
     system("pause");
