@@ -24,7 +24,7 @@ unsigned int BinarySearchTree::size() const{
 
 BinarySearchTree::DataType BinarySearchTree::max() const{
 	Node * currNode = root_;
-	while (currNode -> right != NULL){
+	while (currNode -> right != NULL){ // Update pointed to go right until null is reached
 		currNode = currNode -> right;
 	}
 
@@ -33,15 +33,16 @@ BinarySearchTree::DataType BinarySearchTree::max() const{
 
 BinarySearchTree::DataType BinarySearchTree::min() const{
 	Node * currNode = root_;
-	while (currNode -> left != NULL){
+	while (currNode -> left != NULL){ // Update pointed to go left until null is reached
 		currNode = currNode -> left;
 	}
 
 	return currNode -> val;
 }
 
+// Helper function to find max of two DataTypes
 BinarySearchTree::DataType max(BinarySearchTree::DataType a, BinarySearchTree::DataType b){
-	if (a > b){
+	if (a > b){ // return max of a,b
 		return a;
 	}
 	return b;
@@ -94,30 +95,34 @@ bool BinarySearchTree::exists(DataType val) const{
 bool leafNode(BinarySearchTree::Node * currNode){
 	if ((currNode -> right == NULL) && (currNode -> left == NULL)){
 		return true;
-	}
-	return false;
+    } else {
+        return false;
+    }
 }
 
 //Helper function to check for node with single child
 bool singleChild(BinarySearchTree::Node * currNode){
 	if (((currNode -> right != NULL) && (currNode -> left == NULL)) || ((currNode -> right == NULL) && (currNode -> left != NULL))){
 		return true;
+	} else {
+		return false;	
 	}
-	return false;
 }
 
 //Helper function to check for node with two children
 bool doubleChild(BinarySearchTree::Node * currNode){
 	if ((currNode -> left != NULL) && (currNode -> right != NULL)){
 		return true;
+	} else {
+		return false;
 	}
-	return false;
 }
 
 bool BinarySearchTree::insert(DataType val){
 	Node * nodeToInsert = new Node(val);
 	Node * currNode = root_;
-
+    Node * parent;
+    
 	//Empty tree
 	if (size_ == 0){
 		root_ = nodeToInsert;
@@ -126,7 +131,8 @@ bool BinarySearchTree::insert(DataType val){
 	}
 
 	//Find the appropriate leaf node
-	while (!(::leafNode(currNode))){
+	while (currNode){
+        parent = currNode;
 		if (currNode -> val == val){
 			return false;
 		}
@@ -139,12 +145,12 @@ bool BinarySearchTree::insert(DataType val){
 	}
 
 	//Insert the node
-	if (val > currNode -> val){
-		currNode -> right = nodeToInsert;
+	if (val > parent -> val){
+		parent -> right = nodeToInsert;
 		size_++;
 		return true;
 	} else {
-		currNode -> left = nodeToInsert;
+		parent -> left = nodeToInsert;
 		size_++;
 		return true;
 	}
@@ -157,7 +163,7 @@ bool BinarySearchTree::remove(DataType val){
 	Node * parent;
 	bool foundVal = false;
 
-	while (!::leafNode(currNode)){
+	while (currNode!=NULL){
 		if (currNode -> val == val){ // Found the node of interest
 			foundVal = true;
 			break;
@@ -173,19 +179,18 @@ bool BinarySearchTree::remove(DataType val){
 	}
 
 	//Deleteing a leaf node
-	if (::leafNode(currNode)){
+	if (currNode -> left == NULL && currNode -> right == NULL){
 		if (parent -> left == currNode){
 			parent -> left = NULL;
 		} else {
 			parent -> right = NULL;
 		}
+        return true;
 		delete currNode;
 	}
 
 	//Deleteing a node with single child
 	if (::singleChild(currNode)){
-		cout << "Deleteing val: " << currNode -> val << endl;
-
 		//Deleting single child root
 		if (currNode == root_){
 			if (currNode -> left != NULL){
@@ -227,15 +232,16 @@ bool BinarySearchTree::remove(DataType val){
 	{
 		//Replace currNode with smallest inorder sucessor
 		Node * checker = currNode -> right;
-		if (::leafNode(checker)){
-			currNode = checker;
-			delete checker;
+		if (checker -> left == NULL && checker -> right == NULL){
+            currNode -> val = checker -> val;
+            currNode -> right = checker -> right;
+            delete checker;
 			size_--;
-			currNode -> right = NULL;
+			return true;
 		} else { // right node (checker) has at least one child
 			if (checker -> left != NULL){
 				Node * checkerp = checker;
-				Node * checker = checker -> left;
+				Node * checker = currNode -> right -> left;
 				while (checker -> left != NULL){
 					checkerp = checker;
 					checker = checker -> left;
@@ -244,14 +250,17 @@ bool BinarySearchTree::remove(DataType val){
 				delete checker;
 				size_--;
 				checkerp -> left = NULL;
+				return true;
 			} else {
 				Node * rtemp = currNode -> right;
 				currNode -> val = rtemp -> val;
-				currNode -> right = rtemp;
+				currNode -> right = rtemp -> right;
 				delete rtemp;
 				size_--;
+				return true;
 			}
 		}
 	}
+    return false;
 }
 
